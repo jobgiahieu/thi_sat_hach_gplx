@@ -1,5 +1,5 @@
 {
-  "title": "Bài thi sát hạch GPLX 600 câu - full sync",
+  "title": "Bài thi sát hạch GPLX 600 câu - sync once",
   "folders": {},
-  "description": "JSON tự động đồng bộ với local_images, link trực tiếp GitHub Pages."
+  "description": "JSON tự động đồng bộ với local_images, link GitHub Pages."
 }
