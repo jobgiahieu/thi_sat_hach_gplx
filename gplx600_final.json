@@ -110,12 +110,13 @@
     "isFatal": true
   },
   {
-    "question": "Người tham gia giao thông đường bộ gồm những đối tượng nào? 1. Người điều khiển, người được chở trên phương tiện tham gia giao thông đường bộ.",
+    "question": "Người tham gia giao thông đường bộ gồm những đối tượng nào?",
     "answers": [
+      "1. Người điều khiển, người được chở trên phương tiện tham gia giao thông đường bộ.",
       "Người điều khiển, dẫn dắt vật nuôi trên đường bộ; người đi bộ trên đường bộ.",
       "Cả hai ý trên."
     ],
-    "correct": 1,
+    "correct": 2,
     "image": "",
     "isFatal": true
   },
@@ -173,11 +174,12 @@
     "isFatal": true
   },
   {
-    "question": "Thiết bị an toàn cho trẻ em được hiểu như thế nào là đúng? 1. Là thiết bị có đủ khả năng bảo đảm an toàn cho trẻ em ở tư thế ngồi hoặc nằm trên xe ô tô, được thiết kế để giảm nguy cơ chấn thương cho người dùng trong trường hợp xảy ra va chạm hoặc xe ô tô giảm tốc độ đột ngột, bằng cách hạn chế sự di chuyển của cơ thể trẻ em.",
+    "question": "Thiết bị an toàn cho trẻ em được hiểu như thế nào là đúng?",
     "answers": [
+      "1. Là thiết bị có đủ khả năng bảo đảm an toàn cho trẻ em ở tư thế ngồi hoặc nằm trên xe ô tô, được thiết kế để giảm nguy cơ chấn thương cho người dùng trong trường hợp xảy ra va chạm hoặc xe ô tô giảm tốc độ đột ngột, bằng cách hạn chế sự di chuyển của cơ thể trẻ em.",
       "2. Là thiết bị có đủ khả năng bảo đảm an toàn cho trẻ em ở tư thế đứng hoặc nằm trên xe ô tô, được thiết kế để giảm nguy cơ chấn thương cho người dùng trong trường hợp xe ô tô lưu thông bình thường."
     ],
-    "correct": null,
+    "correct": 0,
     "image": "",
     "isFatal": true
   },
@@ -215,12 +217,13 @@
     "isFatal": true
   },
   {
-    "question": "Tổ chức đua xe được phép thực hiện khi nào? 1. Trên đường phố không có người qua lại.",
+    "question": "Tổ chức đua xe được phép thực hiện khi nào?",
     "answers": [
+      "1. Trên đường phố không có người qua lại.",
       "Được người dân ủng hộ.",
       "Được cơ quan có thẩm quyền cấp phép."
     ],
-    "correct": 1,
+    "correct": 2,
     "image": "",
     "isFatal": true
   },
@@ -841,10 +844,11 @@
   {
     "question": "Thứ tự xuống phà như thế nào là đúng quy tắc giao thông?",
     "answers": [
-      "1. Xe thô sơ, người đi bộ xuống trước, xe cơ giới, xe máy chuyên dùng xuống sau. 2. Xe cơ giới, xe máy chuyên dùng xuống trước, xe thô sơ, người đi bộ xuống sau.",
+      "1. Xe thô sơ, người đi bộ xuống trước, xe cơ giới, xe máy chuyên dùng xuống sau.",
+      "2. Xe cơ giới, xe máy chuyên dùng xuống trước, xe thô sơ, người đi bộ xuống sau.",
       "3. Xe cơ giới, xe thô sơ xuống trước, xe máy chuyên dùng, người đi bộ xuống sau."
     ],
-    "correct": 0,
+    "correct": 1,
     "image": "",
     "isFatal": false
   },
@@ -5147,7 +5151,7 @@
     "isFatal": false
   },
   {
-    "question": "Bi n nào báo hiệu kết thúc đường cao tốc?",
+    "question": "Biển nào báo hiệu kết thúc đường cao tốc?",
     "answers": [
       "1. Biển 1.",
       "2. Biển 2.",
