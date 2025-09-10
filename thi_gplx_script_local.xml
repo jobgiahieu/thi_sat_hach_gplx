@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Thi thử GPLX trực tuyến</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background:#f5f6f8; color:#222; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 16px; }
+    h1 { text-align:center; margin: 10px 0 20px; color:#333; }
+    .row { display:flex; gap:20px; align-items:flex-start; }
+    .col-main { flex:3; }
+    .col-side { flex:1; }
+    .card { background:#fff; border:1px solid #ddd; border-radius:10px; padding:16px; box-shadow: 0 1px 2px rgba(0,0,0,.03); }
+    .hidden { display:none !important; }
+
+    /* Buttons */
+    .actions { display:flex; justify-content:center; gap:10px; margin:16px 0; flex-wrap:wrap; }
+    .btn { padding:10px 18px; border:0; border-radius:8px; cursor:pointer; font-weight:600; text-decoration:none; display:inline-block; text-align:center; }
+    .btn.primary { background:#007bff; color:#fff; }
+    .btn.primary:hover { background:#0065d6; }
+    .btn.secondary { background:#e9ecef; }
+    .btn.danger { background:#dc3545; color:#fff; }
+    .btn[disabled] { background:#ccc; cursor:not-allowed; }
+
+    /* Exam */
+    .info { text-align:center; margin-bottom: 10px; font-size: 15px; }
+    .timer { font-weight:700; color:#d9534f; }
+    .question { margin-bottom:16px; }
+    .qbox { padding:14px; border:1px solid #ddd; border-radius:10px; background:#fff; }
+    .question p { margin: 0 0 10px; font-weight:700; }
+    .imgbox { margin:10px 0 15px; text-align:center; }
+    .imgbox img { max-width:100%; border:1px solid #ccc; border-radius:8px; }
+    .answers label { display:block; margin:6px 0; cursor:pointer; }
+
+    /* Grid */
+    .grid { display:grid; grid-template-columns: repeat(6, 1fr); gap:8px; }
+    .cell { padding:8px 0; text-align:center; border-radius:6px; border:1px solid #ccc; background:#f9f9f9; cursor:pointer; user-select:none; }
+    .cell.current { background:#cce5ff; border-color:#007bff; }
+    .cell.done { background:#e2e3e5; }
+    .cell.correct { background:#d4edda; border-color:#28a745; }
+    .cell.wrong { background:#f8d7da; border-color:#dc3545; }
+
+    /* Report */
+    .report { margin-top:20px; }
+    .report h3 { text-align:center; }
+    .qdetail { margin-bottom:16px; padding:12px; border:1px solid #eee; border-radius:8px; background:#fff; }
+    .qdetail img { max-width:220px; border:1px solid #ddd; border-radius:8px; margin-top:6px; }
+    .correct-ans { color:green; font-weight:700; }
+    .wrong-ans { color:#dc3545; font-weight:700; }
+    .muted { color:#666; }
+    .fatal-wrong { border:2px solid #dc3545; background:#fff5f5; }
+    .fatal-correct { border:2px solid #28a745; background:#f6fff6; }
+    .fatal-label { color:#dc3545; font-weight:700; }
+    .filter-btns { text-align:center; margin:10px 0; }
+
+    /* Popup Lightbox */
+    .modal { display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; overflow:auto; background:rgba(0,0,0,.7); }
+    .modal-content { background:#fff; margin:5% auto; padding:20px; border-radius:10px; max-width:800px; position:relative; }
+    .modal h2 { margin-top:0; }
+    .close { position:absolute; top:10px; right:20px; font-size:24px; font-weight:bold; color:#333; cursor:pointer; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1><b>THI THỬ GPLX TRỰC TUYẾN 2025</b></h1>
+  <h4><i>Kể từ ngày 1.9.2025 trở đi, mọi trường hợp đăng ký thi sát hạch cấp GPLX cơ giới đường bộ đều phải thực hiện thống nhất theo bộ 600 câu hỏi mới do Cục CSGT ban hành (kể cả các trường hợp đào tạo trước ngày 1.1.2025).</i></h4>
+
+  <!-- Home screen -->
+  <div id="homeScreen" class="card">
+    <label for="license"><b>Hạng xe thi</b></label>
+    <select id="license" style="width:100%; padding:8px; margin:6px 0;">
+      <optgroup label="Ô TÔ NĂM 2025">
+        <option value="B">Ô tô hạng B</option>
+        <option value="C1">Ô tô hạng C1</option>
+        <option value="C">Ô tô hạng C</option>
+        <option value="D1">Ô tô hạng D1</option>
+        <option value="D2">Ô tô hạng D2</option>
+        <option value="BE">Ô tô hạng BE</option>
+        <option value="C1E">Ô tô hạng C1E</option>
+        <option value="CE">Ô tô hạng CE</option>
+        <option value="D1E">Ô tô hạng D1E</option>
+        <option value="D2E">Ô tô hạng D2E</option>
+        <option value="DE">Ô tô hạng DE</option>
+      </optgroup>
+      <optgroup label="MÔ TÔ NĂM 2025">
+        <option value="A1">Mô tô hạng A1</option>
+        <option value="A2">Mô tô hạng A2</option>
+        <option value="A3">Mô tô hạng A3</option>
+        <option value="A4">Mô tô hạng A4</option>
+      </optgroup>
+    </select>
+    <div>
+      <label><input type="radio" name="mode" value="random" checked> Ngẫu nhiên</label>
+      <label><input type="radio" name="mode" value="fixed"> Cố định</label>
+      <input id="fixedNo" type="number" min="1" value="1" disabled style="width:80px;">
+    </div>
+    <p id="ruleInfo" class="muted">Vui lòng chọn hạng xe…</p>
+    <button class="btn primary" id="btnStart">Bắt đầu thi</button>
+
+    <!-- Các nút hướng dẫn -->
+    <div class="actions" style="margin-top:15px;">
+      <button class="btn secondary" data-modal="modalLuat">📘 Hướng dẫn phần luật</button>
+      <button class="btn secondary" data-modal="modalBien">🚦 Hướng dẫn biển báo</button>
+      <button class="btn secondary" data-modal="modalSa">🛣️ Hướng dẫn sa hình</button>
+    </div>
+  </div>
+
+  <!-- Exam screen -->
+  <div id="examScreen" class="hidden">
+    <div class="row">
+      <div class="col-main">
+        <div class="card info">
+          <div id="examMeta"></div>
+          <div>Thời gian còn lại: <span id="timer" class="timer">--:--</span></div>
+        </div>
+
+        <div id="qbox" class="qbox question"></div>
+
+        <div class="actions">
+          <button class="btn primary" onclick="submitQuiz()">Nộp bài</button>
+          <button class="btn secondary" id="btnRetry">Làm lại đề</button>
+          <button class="btn danger" id="btnBack">Quay lại màn hình chính</button>
+        </div>
+
+        <div id="result" class="result"></div>
+        <div id="report" class="report card hidden"></div>
+      </div>
+
+      <div class="col-side">
+        <div class="card">
+          <h3 style="margin-top:0;">Chọn câu hỏi</h3>
+          <div id="grid" class="grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Popup Hướng dẫn phần Luật (ĐẦY ĐỦ như nguồn bạn cung cấp) -->
+<style>
+/* Modal + Accordion styles (bỏ vào <head> hoặc trước modal) */
+#modalLuat { display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; overflow:auto; background:rgba(0,0,0,.6); }
+#modalLuat .modal-content { background:#fff; margin:3% auto; padding:18px; border-radius:10px; max-width:920px; box-shadow:0 10px 30px rgba(0,0,0,.3); max-height:88vh; overflow:auto; position:relative; }
+#modalLuat .close { position:absolute; right:14px; top:10px; font-size:26px; font-weight:700; color:#333; cursor:pointer; }
+#modalLuat h2 { margin-top:0; font-size:20px; text-align:left; }
+#modalLuat .intro { text-align:center; margin-bottom:10px; }
+#modalLuat .intro img{ max-width:320px; width:100%; height:auto; border-radius:6px; border:1px solid #e6e6e6; }
+
+/* Accordion */
+#modalLuat .accordion .acc-title {
+  background:#f7f7f7; padding:10px 12px; margin:8px 0; border-radius:6px; cursor:pointer; font-weight:700;
+  border:1px solid #eee;
+}
+#modalLuat .accordion .acc-title:hover{ background:#f0f0f0; }
+#modalLuat .accordion .acc-content {
+  display:none; padding:10px 12px; margin-bottom:6px; background:#fff; border-left:4px solid #007bff;
+  border-radius:0 6px 6px 6px; line-height:1.45; color:#222;
+}
+#modalLuat .accordion .acc-content.open{ display:block; }
+#modalLuat img.inline-img{ max-width:100%; height:auto; border:1px solid #ddd; border-radius:6px; margin:8px 0; display:block; }
+#modalLuat .note { font-style:italic; color:#444; margin-top:10px; }
+</style>
+
+<div id="modalLuat" role="dialog" aria-labelledby="modalLuatTitle" aria-hidden="true">
+  <div class="modal-content" role="document">
+    <span class="close" aria-label="Đóng">&times;</span>
+    <h2 id="modalLuatTitle">📘 Hướng dẫn phần Luật</h2>
+
+    <div class="intro">
+      <img src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/anh-bo-600-cau.png" alt="Hướng dẫn trả lời 600 câu hỏi">
+    </div>
+
+    <div class="accordion">
+
+      <div class="acc-title">Câu hỏi khái niệm</div>
+      <div class="acc-content">
+        <ul>
+          <li>- Phần đường xe chạy: được sử dụng cho các phương tiện giao thông qua lại.</li>
+          <li>- Làn đường xe chạy: được chia theo chiều dọc và có bề rộng đủ cho xe chạy an toàn</li>
+          <li>- Khổ giới hạn: giới hạn về chiều cao, chiều rộng của đường.</li>
+          <li>- Dải phân cách: để phân chia mặt đường thành hai chiều xe chạy riêng biệt</li>
+          <li>- Dải phân cách có 2 loại: cố định và di động.</li>
+          <li>- Đường ưu tiên: được các phương tiện đến từ hướng khác nhường đường.</li>
+          <li>- Đường cao tốc: là đường dành riêng cho ô tô, không giao nhau cùng mức với đường khác và chỉ vào, ra ở điểm nhất định.</li>
+          <li>- Phương tiện tham gia giao thông: gồm 3 loại là: cơ giới, thô sơ, xe máy chuyên dùng</li>
+          <li>- Phương tiện giao thông cơ giới: gồm xe ô tô… (kể cả xe máy điện).</li>
+          <li>- Phương tiện giao thông thô sơ: gồm xe đạp, xe xích lô, xe lăn….</li>
+          <li>- Dừng xe: là trạng thái đứng yên và đứng yên tạm thời.</li>
+          <li>- Đỗ xe: là trạng thái đứng yên và không giới hạn thời gian.</li>
+          <li>- Người lái xe: là người điều khiển xe cơ giới.</li>
+          <li>- Người tham gia giao thông: người điều khiển, người sử dụng phương tiện và dẫn dắt súc vật, người đi bộ ….</li>
+          <li>- Người điều khiển phương tiện tham gia giao thông: cơ giới, thô sơ, xe máy chuyên dùng.</li>
+          <li>- Người điều khiển giao thông: là người được giao nhiệm vụ hướng dẫn giao thông, cảnh sát giao thông.</li>
+        </ul>
+      </div>
+
+      <div class="acc-title">Câu hỏi về hành vi bị cấm, bị nghiêm cấm</div>
+      <div class="acc-content">
+        <ul>
+          <li>- Chọn đáp án: Bị cấm (hoặc) Bị nghiêm cấm</li>
+          <li>- Chọn đáp án có chữ "Không được…" </li>
+        </ul>
+      </div>
+
+      <div class="acc-title">Câu hỏi về tốc độ + độ Tuổi</div>
+      <div class="acc-content">
+        <ul>
+          <li>- Nhớ <b>xe gắn máy</b> chỉ 40 km/h &ndash; Do đó không chọn đáp án mà xe gắn máy &gt;40 km/h, hãy loại nó ra.</li>
+          <li>- Câu hỏi tốc độ trong khu vực đông dân cư: 50 km/h -&gt; đường hai chiều (1 làn) và 60 km/h -&gt; đường đôi (hai làn).</li>
+          <li>- Câu hỏi tốc độ ngoài khu vực đông dân cư: nhớ đường đôi (hai làn): 90 -&gt; ý 1, 80 -&gt; ý 2, 70 -&gt; ý 3, 60 -&gt; ý 4. Đường hai chiều (Một làn): 80 -&gt; ý 1, 70 -&gt; ý 2, 60 -&gt; ý 3, 50 -&gt; ý 4.</li>
+          <li>
+            <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/tốc-độ-trong-khu-đông-dân-cư.jpg" alt="Tốc độ trong khu đông dân cư">
+            <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/toc-do-ngoai-khu-dan-cu.jpg" alt="Tốc độ ngoài khu đông dân cư">
+          </li>
+          <li>* Độ tuổi bạn nhớ: Hạng A1, A, B1, B, C1: 18 tuổi. Hạng C: 21 tuổi. Hạng D1, D2: 24 tuổi. Hạng D: 27 tuổi. (Mẹo &ndash; hãy nhìn 3 đáp án đầu và tìm số lớn nhất). Tuổi tối đa: Nam 57 tuổi và Nữ 55 tuổi.</li>
+        </ul>
+      </div>
+
+      <div class="acc-title">Câu hỏi về khoảng cách xe chạy</div>
+      <div class="acc-content">
+        <ul>
+          <li>Mẹo 1: Trong câu hỏi, nhìn vào tốc độ lớn nhất: Lấy vận tốc lớn nhất &ndash; 30 = đáp án đúng là đáp án gần nhất với kết quả. Ví dụ câu 139: tốc độ lớn nhất trên câu hỏi là: 120 km/h. Ta lấy 120 &ndash; 30 = 90 vậy chọn đáp án số 3 là 100 m.</li>
+          <li><img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/quy-dinh-ve-van-toc-3_2464.png" alt="khoảng cách xe chạy mới nhất"></li>
+        </ul>
+      </div>
+
+      <div class="acc-title">Những con số cần phải nhớ</div>
+      <div class="acc-content">
+        <ul>
+          <li>&ndash; Chỉ được báo hiệu bằng đèn khi lái xe trong đô thị từ 22 giờ đến 5 giờ sáng.</li>
+          <li>&ndash; Cấm vào đường cao tốc: Người đi bộ, những xe có tốc độ thiết kế nhỏ hơn 70 km/h.</li>
+          <li>&ndash; Dừng xe, đỗ xe trên phố: Đỗ sát lề đường phía bên phải, không được cách xa 0,25 m.</li>
+          <li>&ndash; Dừng xe, đỗ xe trên phố: cách xe ô tô đang đỗ bên kia đường là 20 m.</li>
+          <li>&ndash; Khi thấy phương tiện đường sắt tới thì dừng lại ngay và đỗ cách 5 m tính từ ray gần nhất.</li>
+          <li>&ndash; Xe ô tô hỏng tại vị trí giao nhau với đường sắt: nhanh chóng đặt báo hiệu cách 500 m và đưa ô tô ra khỏi đường sắt.</li>
+          <li>&ndash; Sử dụng giấy phép lái xe đã khai báo bị mất thì sẽ bị thu hồi GPLX và không được cấp GPLX trong 5 năm.</li>
+          <li>&ndash; Thời gian làm việc của người lái xe: 10 giờ/ngày và 4 giờ liên tục.</li>
+          <li>&ndash; Hành khách có quy định: Trọng lượng không quá 20 KG.</li>
+          <li>&ndash; Thời gian sử dụng xe ô tô: Ô tô tải: 25 năm. Ô tô khách: 20 năm.</li>
+          <li>&ndash; Âm lượng còi của xe ô tô: 90 dB(A) đến 115 dB(A).</li>
+        </ul>
+      </div>
+
+      <div class="acc-title">Câu hỏi về Các hạng xe</div>
+      <div class="acc-content">
+        <ul>
+          <li>&ndash; Hạng A1: Hạng A1 cấp cho người lái xe mô tô hai bánh có dung tích xi-lanh đến 125 cm3 hoặc có công suất động cơ điện đến 11 kW;</li>
+          <li>&ndash; Hạng A: Hạng A cấp cho người lái xe mô tô hai bánh có dung tích xi-lanh trên 125 cm3 hoặc có công suất động cơ điện trên 11 kW và các loại xe quy định cho giấy phép lái xe hạng A1;</li>
+          <li>&ndash; Hạng B1: Hạng B1 cấp cho người lái xe mô tô ba bánh và các loại xe quy định cho giấy phép lái xe hạng A1;</li>
+          <li>&ndash; Hạng B1 tự động: Xe ô tô tự động chở người đến 9 chỗ ngồi, xe tải tự động dưới 3,5 tấn. Không kinh doanh vận tải;</li>
+          <li>&ndash; Hạng B: Hạng B cấp cho người lái xe ô tô chở người đến 08 chỗ (không kể chỗ của người lái xe); xe ô tô tải và ô tô chuyên dùng có khối lượng toàn bộ theo thiết kế đến 3.500 kg; các loại xe ô tô quy định cho giấy phép lái xe hạng B kéo rơ-moóc có khối lượng toàn bộ theo thiết kế đến 750 kg;</li>
+          <li>&ndash; Hạng C1: Hạng C1 cấp cho người lái xe ô tô tải và ô tô chuyên dùng có khối lượng toàn bộ theo thiết kế trên 3.500 kg đến 7.500 kg; các loại xe ô tô tải quy định cho giấy phép lái xe hạng C1 kéo rơ-moóc có khối lượng toàn bộ theo thiết kế đến 750 kg; các loại xe quy định cho giấy phép lái xe hạng B;</li>
+          <li>&ndash; Hạng C: Hạng C cấp cho người lái xe ô tô tải và ô tô chuyên dùng có khối lượng toàn bộ theo thiết kế trên 7.500 kg; các loại xe ô tô tải quy định cho giấy phép lái xe hạng C kéo rơ-moóc có khối lượng toàn bộ theo thiết kế đến 750 kg; các loại xe quy định cho giấy phép lái xe hạng B và hạng C1;</li>
+          <li>&ndash; Hạng D1: Hạng D1 cấp cho người lái xe ô tô chở người trên 08 chỗ đến 16 chỗ; các loại xe ô tô chở người quy định cho giấy phép lái xe hạng D1 kéo rơ-moóc có khối lượng toàn bộ theo thiết kế đến 750 kg; các loại xe quy định cho giấy phép lái xe các hạng B, C1, C;</li>
+          <li>&ndash; Hạng D2: Hạng D2 cấp cho người lái xe ô tô chở người (kể cả xe buýt) trên 16 chỗ đến 29 chỗ; các loại xe ô tô chở người quy định cho giấy phép lái xe hạng D2 kéo rơ-moóc có khối lượng toàn bộ theo thiết kế đến 750 kg; các loại xe quy định cho giấy phép lái xe các hạng B, C1, C, D1;</li>
+          <li>&ndash; Hạng D: Hạng D cấp cho người lái xe ô tô chở người (kể cả xe buýt) trên 29 chỗ; xe ô tô chở người giường nằm; các loại xe ô tô chở người quy định cho giấy phép lái xe hạng D kéo rơ-moóc có khối lượng toàn bộ theo thiết kế đến 750 kg; các loại xe quy định cho giấy phép lái xe các hạng B, C1, C, D1, D2;</li>
+          <li>&ndash; Hạng BE: Hạng BE cấp cho người lái các loại xe ô tô quy định cho giấy phép lái xe hạng B kéo rơ-moóc có khối lượng toàn bộ theo thiết kế trên 750 kg;</li>
+          <li>&ndash; Hạng CE: Hạng CE cấp cho người lái các loại xe ô tô quy định cho giấy phép lái xe hạng C kéo rơ-moóc có khối lượng toàn bộ theo thiết kế trên 750 kg; xe ô tô đầu kéo kéo sơ mi rơ-moóc;</li>
+        </ul>
+      </div>
+
+      <div class="acc-title">Quy tắc giao thông đường bộ</div>
+      <div class="acc-content">
+        <ul>
+          <li>- Luôn chọn đáp án có từ: Giảm tốc độ, đi về phía bên phải, Từ từ, nhường đường, không được quay đầu…</li>
+          <li>- Hiệu lệnh của người điều khiển giao thông: giang hai tay: trái/phải được đi. Tay giơ thẳng đứng: các xe dừng lại.</li>
+          <li>- Câu hỏi nơi đường giao nhau: Giao nhau tại nơi không có vòng xuyến: nhường đường bên phải.</li>
+          <li>- Hầm đường bộ: Không được quay đầu xe.</li>
+          <li>- Xe quá khổ: phải xin phép cơ quan quản lý giao thông.</li>
+          <li>- Xe kéo rơ-moóc hoặc kéo xe khác: phải có tổng trọng lượng lớn hơn và việc nối kéo phải bằng thanh nối cứng.</li>
+          <li>- Tránh xe đi ngược chiều: Xe gần chỗ tránh vào chỗ tránh trước, Xe xuống dốc phải nhường lên dốc.</li>
+          <li>- Dừng đỗ trên đường cao tốc: chỉ dừng đỗ ở nơi quy định; chỉ được dừng, đỗ trên làn khẩn cấp khi xe gặp sự cố, tai nạn. Khi vượt qua lối ra định rẽ thì phải tiếp tục chạy đến lối ra tiếp theo.</li>
+        </ul>
+      </div>
+
+      <div class="acc-title">Văn hóa giao thông, đạo đức người lái xe, PCCC & cứu hộ</div>
+      <div class="acc-content">
+        <ul>
+          <li>- Câu hỏi về văn hoá giao thông và đạo đức nghề nghiệp: chọn đáp án cả hai ý trên.</li>
+          <li>- Chọn đáp án: luôn tuân thủ pháp luật, chấp hành tốc độ, biển báo, người điều khiển, giảm tốc độ, cho xe đi chậm, đi về phía bên phải.</li>
+          <li>- Khi hỏi sơ cứu: Nếu chảy máu đỏ tươi và phun thành tia: cầm máu không trực tiếp.</li>
+        </ul>
+      </div>
+
+      <div class="acc-title">Câu hỏi Kỹ Thuật Lái Xe</div>
+      <div class="acc-content">
+        <ul>
+          <li>a. Chọn đáp án có chữ "giảm tốc độ", "về số thấp hoặc về số 0 hoặc N", "về số 1", "Đạp hết hành trình ly hợp", "Không thay đổi số, đánh lái ngoặt, phanh gấp", "Cho xe chạy từ từ", "Cơ quan có thẩm quyền", "Ở nơi quy định, ở nơi cho phép".</li>
+          <li><b>* Đáp án nào xuất hiện các từ sau thì đáp án đó là sai: "Tăng số, tăng tốc độ, đi bên trái, đi ở làn ít phương tiện, đi làn đường bất kỳ, cố ý giành đường, buông cả 2 tay.."</b></li>
+          <li>- Khởi động hộp số tự động: đạp phanh chân hết hành trình + không sử dụng chân trái.</li>
+          <li>- Số tự động trên đường trơn trượt: về số thấp (số thấp của số tự động là số 3-2-L hoặc + hoặc - trên hộp số).</li>
+          <li>- Điều chỉnh ghế lái số tự động phải về số N hoặc số 0 hoặc vị trí P.</li>
+          <li>- Xuống dốc dài số tự động: về số thấp (Số L hoặc 1,2), đạp phanh chân để giảm tốc độ.</li>
+        </ul>
+      </div>
+
+      <div class="acc-title">Cấu Tạo &amp; Sửa Chữa ôtô</div>
+      <div class="acc-content">
+        <ul>
+          <li>Chọn đáp án có chữ "bắt buộc".</li>
+          <li>- Hỏi động cơ &gt; Chọn đáp án có câu "biến nhiệt năng thành cơ năng".</li>
+          <li>- Hỏi động cơ 4 kỳ &gt; có 4 hành trình piston có 1 lần sinh công. Tìm đáp án có số 4.</li>
+          <li>- Công dụng hệ thống bôi trơn &gt; cung cấp dầu bôi trơn cho các chi tiết, giảm hao mòn.</li>
+          <li>- Hỏi truyền lực &gt; Chọn đáp án có câu "Truyền mômen".</li>
+          <li>- Hỏi phanh &gt; chọn đáp án có câu "Giảm tốc độ, dừng chuyển động".</li>
+          <li>- Hỏi ly hợp &gt; Chọn đáp án có câu để "truyền hoặc ngắt truyền động lực".</li>
+          <li>- Hỏi hộp số &gt; Chọn đáp án có câu "Chuyển động lùi".</li>
+          <li>- Hỏi hệ thống lái &gt; Chọn đáp án có câu "Để thay đổi hướng" chuyển động.</li>
+          <li>- Tác dụng máy phát &gt; để nạp năng lượng cho phụ tải.</li>
+          <li>- Tác dụng đèn phanh &gt; Cảnh báo cho xe phía sau đang giảm tốc độ, có tác dụng định vị vào ban đêm.</li>
+          <li>- Nguyên nhân làm cho động cơ diesel không nổ &gt; hết nhiên liệu, tắc lõi lọc, nhiên liệu có không khí, tạp chất (loại trừ ý có tia lửa điện).</li>
+          <li>- Bánh ô tô &gt; đủ số lượng, vành đĩa.</li>
+          <li>- Kính chắn gió &gt; Là kính an toàn.</li>
+          <li>- Gạt nước phải &gt; có đủ số lượng, không quá mòn.</li>
+          <li>- Mục đích bảo dưỡng thường xuyên: giảm hao mòn, kịp thời phát hiện hư hỏng.</li>
+          <li>- Dây đai an toàn &gt; cơ cấu giữ chặt dây khi giật đột ngột.</li>
+          <li>- Tác dụng túi khí &gt; giảm khả năng va đập + hấp thụ lực.</li>
+          <li>- Đèn phải có &gt; đèn chiếu sáng gần và xa, đèn báo hãm.</li>
+          <li>- Tác dụng đèn phanh &gt; Cảnh báo cho xe phía sau đang giảm tốc độ, có tác dụng định vị vào ban đêm.</li>
+          <li>- Tác dụng ắc quy &gt; để tích trữ điện năng.</li>
+          <li>- Tác dụng máy phát &gt; để nạp năng lượng cho phụ tải.</li>
+        </ul>
+      </div>
+
+    </div> <!-- end accordion -->
+
+    <div class="note">Mẹo nhanh: khi thấy các cụm từ "tuyệt đối không được", "cấm", thường chọn đáp án nghiêm khắc nhất.</div>
+  </div>
+</div>
+
+<script>
+/* JS cho modal + accordion: chỉ mở 1 mục tại 1 thời điểm */
+(function(){
+  function openModal(){ var m=document.getElementById('modalLuat'); if(m){ m.style.display='block'; m.setAttribute('aria-hidden','false'); } }
+  function closeModal(){ var m=document.getElementById('modalLuat'); if(m){ m.style.display='none'; m.setAttribute('aria-hidden','true'); } }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    // mở modal khi có nút data-modal="modalLuat"
+    document.querySelectorAll('[data-modal="modalLuat"]').forEach(function(btn){
+      btn.addEventListener('click', function(e){ e.preventDefault(); openModal(); });
+    });
+    // đóng nút X
+    var closes = document.querySelectorAll('#modalLuat .close');
+    closes.forEach(function(c){ c.addEventListener('click', closeModal); });
+    // click ra ngoài đóng
+    window.addEventListener('click', function(e){
+      var m = document.getElementById('modalLuat');
+      if(m && e.target === m) closeModal();
+    });
+
+    // accordion: chỉ 1 mở
+    var titles = document.querySelectorAll('#modalLuat .acc-title');
+    titles.forEach(function(t){
+      t.addEventListener('click', function(){
+        var allContents = document.querySelectorAll('#modalLuat .acc-content');
+        allContents.forEach(function(c){ c.classList.remove('open'); c.style.display='none'; });
+        var next = t.nextElementSibling;
+        if(next){
+          next.classList.add('open');
+          next.style.display='block';
+          // ensure modal scroll to show opened content top
+          var modalContent = document.querySelector('#modalLuat .modal-content');
+          if(modalContent){
+            var top = next.offsetTop - 20;
+            modalContent.scrollTop = top;
+          }
+        }
+      });
+    });
+  });
+})();
+</script>
+
+<!-- Popup Hướng dẫn Biển báo -->
+<style>
+/* Modal + Accordion styles (bỏ vào <head> hoặc trước modal) */
+#modalBien { display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; overflow:auto; background:rgba(0,0,0,.6); }
+#modalBien .modal-content { background:#fff; margin:3% auto; padding:18px; border-radius:10px; max-width:920px; box-shadow:0 10px 30px rgba(0,0,0,.3); max-height:88vh; overflow:auto; position:relative; }
+#modalBien .close { position:absolute; right:14px; top:10px; font-size:26px; font-weight:700; color:#333; cursor:pointer; }
+#modalBien h2 { margin-top:0; font-size:20px; text-align:left; }
+#modalBien .intro { text-align:center; margin-bottom:10px; }
+#modalBien .intro img{ max-width:320px; width:100%; height:auto; border-radius:6px; border:1px solid #e6e6e6; }
+
+/* Accordion */
+#modalBien .accordion .acc-title {
+  background:#f7f7f7; padding:10px 12px; margin:8px 0; border-radius:6px; cursor:pointer; font-weight:700;
+  border:1px solid #eee;
+}
+#modalBien .accordion .acc-title:hover{ background:#f0f0f0; }
+#modalBien .accordion .acc-content {
+  display:none; padding:10px 12px; margin-bottom:6px; background:#fff; border-left:4px solid #007bff;
+  border-radius:0 6px 6px 6px; line-height:1.45; color:#222;
+}
+#modalBien .accordion .acc-content.open{ display:block; }
+#modalBien img.inline-img{ max-width:100%; height:auto; border:1px solid #ddd; border-radius:6px; margin:8px 0; display:block; }
+#modalBien .note { font-style:italic; color:#444; margin-top:10px; }
+</style>
+
+<div id="modalBien" role="dialog" aria-labelledby="modalBienTitle" aria-hidden="true">
+  <div class="modal-content" role="document">
+    <span class="close" aria-label="Đóng">&times;</span>
+      <h2 id="modalBienTitle">🚦 Hướng dẫn phần Biển báo</h2>
+
+    <div class="accordion">
+
+      <!-- Biển báo Cấm -->
+      <div class="acc-title">Hướng dẫn phần Biển báo Cấm <span class="acc-icon">+</span></div>
+      <div class="acc-content">
+        <ul>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-cam-103a.jpg" width="40"> : Cấm xe cơ giới từ 3 bánh trở lên (trừ mô tô 2 bánh + xe gắn máy).</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/1.jpg" width="40"> : Cấm ô tô Taxi.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-cam-106a.jpg" width="40"> : Cấm xe tải và máy kéo.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/5.jpg" width="40"> : Cấm ô tô tải chở hàng nguy hiểm.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/3.jpg" width="40"> : Cấm ô tô khách, trừ xe buýt.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-cam-109.jpg" width="40"> : Cấm máy kéo (máy xúc, máy lu...).</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-cam-108.jpg" width="40"> : Cấm xe cơ giới kéo rơ-moóc hoặc kéo xe khác.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-cam-104.jpg" width="40"> : Cấm mô tô (không cấm xe gắn máy).</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-cam-123a.jpg" width="40"> : Cấm rẽ trái nhưng được phép quay đầu.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-cam-124a.jpg" width="40"> : Cấm quay đầu nhưng được rẽ trái.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-chi-dan-410.png" width="40"> : Chỉ dẫn nơi được phép quay đầu và rẽ trái.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/20.jpg" width="40"> : Cấm ô tô, mô tô 3 bánh quay đầu, được rẽ trái.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/22.jpg" width="40"> : Cấm ô tô, mô tô 3 bánh rẽ trái – rẽ phải – quay đầu.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/8-1.jpg" width="40"> : Cấm xe 3 bánh có động cơ.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/9.jpg" width="40"> : Cấm xích lô không động cơ.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-cam-125.jpg" width="40"> : Cấm tất cả ô tô vượt.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-cam-126.jpg" width="40"> : Cấm xe tải vượt (xe con, xe khách được vượt).</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-cam-130.jpg" width="40"> : Cấm dừng và đỗ xe.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-cam-131a.jpg" width="40"> : Cấm đỗ xe (không cấm dừng).</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/24.jpg" width="40"> : Cấm đỗ xe ngày lẻ.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/25.jpg" width="40"> : Cấm đỗ xe ngày chẵn.</li>
+        </ul>
+      </div>
+
+      <!-- Biển cảnh báo nguy hiểm -->
+      <div class="acc-title">Hướng dẫn Biển cảnh báo nguy hiểm <span class="acc-icon">+</span></div>
+      <div class="acc-content">
+        <ul>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/28.jpg" width="40"> : Chỗ ngoặt nguy hiểm dễ lật xe.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-203b.jpg" width="40"> <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-203a.jpg" width="40"> <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-203c1.jpg" width="40"> : Đường bị hẹp.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-204.jpg" width="40"> : Đường hai chiều.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-234.jpg" width="40"> : Giao nhau với đường hai chiều.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-207a.jpg" width="40"> : Giao nhau với đường không ưu tiên.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-208.jpg" width="40"> : Giao nhau với đường ưu tiên.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-210.jpg" width="40"> : Giao với đường sắt có rào chắn.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-211a.jpg" width="40"> : Giao với đường sắt không rào chắn.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-242a-300x193.jpg" width="40"> : Đường sắt giao vuông góc.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-237.jpg" width="40"> : Cầu vồng.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-218.jpg" width="40"> : Cửa chui.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-240.jpg" width="40"> : Đường hầm.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-235.jpg" width="40"> : Đường đôi.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-236.jpg" width="40"> : Hết đường đôi.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-246a.jpg" width="40"> : Chú ý chướng ngại vật.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/33.jpg" width="40"> : Cầu quay, cầu cất.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/34.jpg" width="40"> : Cầu tạm.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/35.jpg" width="40"> : Kè-vực sâu phía trước.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/36.jpg" width="40"> : Kè-vực sâu phía bên phải.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/37.jpg" width="40"> : Kè-vực sâu phía bên trái.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/40.jpg" width="40"> : Đá nở.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/41.jpg" width="40"> : Sỏi đá bắn lên.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/42.jpg" width="40"> : Đường có ổ gà, lồi lõm.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/43.jpg" width="40"> : Đường có gờ giảm tốc.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/52.jpg" width="40"> : Dốc lên nguy hiểm.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/53.jpg" width="40"> : Dốc xuống nguy hiểm.</li>
+        </ul>
+      </div>
+
+      <!-- Biển hiệu lệnh -->
+      <div class="acc-title">Hướng dẫn phần Biển hiệu lệnh <span class="acc-icon">+</span></div>
+      <div class="acc-content">
+        <ul>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-hieu-lenh-301d.jpg" width="40"> <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-hieu-lenh-301e.jpg" width="40"> : Hướng đi phải theo (trước ngã ba, ngã tư).</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-hieu-lenh-304.jpg" width="40"> : Đường dành cho xe thô sơ.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-hieu-lenh-306.jpg" width="40"> : Tốc độ tối thiểu cho phép.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-hieu-lenh-307.jpg" width="40"> : Hết tốc độ tối thiểu.</li>
+        </ul>
+      </div>
+
+      <!-- Biển chỉ dẫn -->
+      <div class="acc-title">Hướng dẫn phần Biển chỉ dẫn <span class="acc-icon">+</span></div>
+      <div class="acc-content">
+        <ul>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/73.jpg" width="40"> : Đường cụt phía trước.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/71.jpg" width="40"> : Rẽ vào đường cụt bên phải.</li>
+          <li>Biển <img class="inline-img" src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/72.jpg" width="40"> : Rẽ vào đường cụt bên trái.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+/* JS cho modal + accordion: chỉ mở 1 mục tại 1 thời điểm */
+(function(){
+  function openModal(){ var m=document.getElementById('modalBien'); if(m){ m.style.display='block'; m.setAttribute('aria-hidden','false'); } }
+  function closeModal(){ var m=document.getElementById('modalBien'); if(m){ m.style.display='none'; m.setAttribute('aria-hidden','true'); } }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    // mở modal khi có nút data-modal="modalLuat"
+    document.querySelectorAll('[data-modal="modalBien"]').forEach(function(btn){
+      btn.addEventListener('click', function(e){ e.preventDefault(); openModal(); });
+    });
+    // đóng nút X
+    var closes = document.querySelectorAll('#modalBien .close');
+    closes.forEach(function(c){ c.addEventListener('click', closeModal); });
+    // click ra ngoài đóng
+    window.addEventListener('click', function(e){
+      var m = document.getElementById('modalBien');
+      if(m && e.target === m) closeModal();
+    });
+
+    // accordion: chỉ 1 mở
+    var titles = document.querySelectorAll('#modalBien .acc-title');
+    titles.forEach(function(t){
+      t.addEventListener('click', function(){
+        var allContents = document.querySelectorAll('#modalBien .acc-content');
+        allContents.forEach(function(c){ c.classList.remove('open'); c.style.display='none'; });
+        var next = t.nextElementSibling;
+        if(next){
+          next.classList.add('open');
+          next.style.display='block';
+          // ensure modal scroll to show opened content top
+          var modalContent = document.querySelector('#modalBien .modal-content');
+          if(modalContent){
+            var top = next.offsetTop - 20;
+            modalContent.scrollTop = top;
+          }
+        }
+      });
+    });
+  });
+})();
+</script>
+
+
+<!-- Popup Hướng dẫn sa hình -->
+<div id="modalSa" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>🛣️ Hướng dẫn sa hình</h2>
+
+    <h3>Nguyên tắc giải câu hỏi sa hình</h3>
+
+    <p><b>1. Xe vào ngã ba ngã tư trước được đi trước.</b></p>
+    <img src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/117.jpg" 
+         alt="Xe vào ngã tư trước" style="max-width:100%;border:1px solid #ccc;border-radius:8px;">
+    <p>Xe lam vào ngã tư trước do đó được đi trước.</p>
+
+    <p><b>2. Xe ưu tiên đi trước</b> (ví dụ: cứu thương) theo thứ tự: <b>PCCC → Quân sự → Công an → Cứu thương</b>.</p>
+    <img src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/34234234.jpg" 
+         alt="Xe cứu thương đi trước" style="max-width:100%;border:1px solid #ccc;border-radius:8px;">
+    <p style="text-align:center;">Xe cứu thương đi trước</p>
+    <img src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/213123123.jpg" 
+         alt="Xe quân sự đi trước công an" style="max-width:100%;border:1px solid #ccc;border-radius:8px;">
+    <p style="text-align:center;">Xe quân sự đi trước xe công an</p>
+
+    <p><b>3. Xe đi trên đường ưu tiên đi trước</b> (nhìn thấy biển 
+      <img src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-bao-nguy-hiem-207a.jpg" alt="Biển đường ưu tiên" style="height:24px;">
+      hoặc 
+      <img src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/bien-chi-dan-401.png" alt="Biển chỉ dẫn đường ưu tiên" style="height:24px;">).
+    </p>
+    <img src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/119.jpg" 
+         alt="Xe đi đường ưu tiên" style="max-width:100%;border:1px solid #ccc;border-radius:8px;">
+    <p style="text-align:center;">Xe con (B) đi trên đường ưu tiên nên được đi trước.</p>
+
+    <p><b>4. Xe nào bên phải không bị vướng được đi trước.</b></p>
+    <img src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/121.jpg" 
+         alt="Xe mô tô bên phải trống" style="max-width:100%;border:1px solid #ccc;border-radius:8px;">
+    <p style="text-align:center;">Xe mô tô bên phải trống → đi trước, tiếp theo xe con, cuối cùng ô tô tải.</p>
+    <img src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/24324234.jpg" 
+         alt="Xe đạp và mô tô bên phải trống" style="max-width:100%;border:1px solid #ccc;border-radius:8px;">
+    <p>Xe đạp + mô tô bên phải không bị vướng → đi trước, sau đó xe con (A), cuối cùng xe con (B).</p>
+
+    <p><b>5. Xe nào rẽ phải đi trước, rẽ trái nhường đi thẳng.</b></p>
+    <img src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/23432423423.jpg" 
+         alt="Mô tô rẽ phải" style="max-width:100%;border:1px solid #ccc;border-radius:8px;">
+    <p style="text-align:center;">Xe mô tô rẽ phải đi trước xe con.</p>
+    <img src="https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/21312312313.jpg" 
+         alt="Xe con rẽ phải" style="max-width:100%;border:1px solid #ccc;border-radius:8px;">
+    <p style="text-align:center;">Xe con rẽ phải → đi trước; xe bạn đi thẳng → đi thứ 2; xe mô tô rẽ trái nhường đi thẳng.</p>
+
+    <hr>
+    <p><i>📌 Mẹo: chọn đáp án có chữ <b>“không được”</b>, <b>“cấm”</b>.  
+    Nếu sa hình có CSGT đứng giữa ngã tư thì đa số chọn ý số 3.</i></p>
+  </div>
+</div>
+
+
+<script>
+/* ==== Modal Control ==== */
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[data-modal]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-modal");
+      document.getElementById(id).style.display = "block";
+    });
+  });
+  document.querySelectorAll(".modal .close").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.target.closest(".modal").style.display = "none";
+    });
+  });
+  window.addEventListener("click", e => {
+    document.querySelectorAll(".modal").forEach(m => {
+      if (e.target === m) m.style.display = "none";
+    });
+  });
+});
+
+/* ==== Config ==== */
+const DATA_URL = "https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/gplx600_clean.json";
+  const IMAGE_BASE = "https://raw.githubusercontent.com/jobgiahieu/thi_sat_hach_gplx/main/images/";
+
+const examRules = {
+  "B": { questions: 30, time: 20 },
+  "C1": { questions: 40, time: 22 },
+  "C": { questions: 40, time: 22 },
+  "D1": { questions: 40, time: 22 },
+  "D2": { questions: 40, time: 22 },
+  "BE": { questions: 40, time: 22 },
+  "C1E": { questions: 40, time: 22 },
+  "CE": { questions: 40, time: 22 },
+  "D1E": { questions: 40, time: 22 },
+  "D2E": { questions: 40, time: 22 },
+  "DE": { questions: 40, time: 22 },
+  "A1": { questions: 25, time: 19 },
+  "A2": { questions: 25, time: 19 },
+  "A3": { questions: 25, time: 19 },
+  "A4": { questions: 25, time: 19 }
+};
+
+let allQuestions = [], selectedQuestions = [], answers = {};
+let idx = 0, finished = false, timerInterval, timeLeft = 0, passingScore = 0;
+let lastLicense = null, lastMode = "random", lastFixedNo = 1;
+
+function resolveImage(u){ if(!u) return ""; if(/^https?:/.test(u)) return u; return IMAGE_BASE+u; }
+function ceil85(n){ return Math.ceil(n*0.85); }
+function shuffle(a){ let arr=a.slice(); for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]];} return arr; }
+
+async function loadAllQuestions(){ const res=await fetch(DATA_URL); allQuestions=await res.json(); updateRuleInfo(); }
+
+const licenseEl=document.getElementById("license"), fixedNoEl=document.getElementById("fixedNo"), ruleInfoEl=document.getElementById("ruleInfo");
+document.querySelectorAll('input[name="mode"]').forEach(r=>{r.addEventListener('change',()=>{fixedNoEl.disabled=(getMode()!=="fixed");});});
+licenseEl.addEventListener("change", updateRuleInfo);
+function getMode(){ return document.querySelector('input[name="mode"]:checked').value; }
+function updateRuleInfo(){ const lic=licenseEl.value, rule=examRules[lic]; const pass=ceil85(rule.questions); ruleInfoEl.innerHTML=`Hạng ${lic}: ${rule.questions} câu - ${rule.time} phút. Cần &ge; ${pass} câu đúng để ĐẠT.`; }
+document.getElementById("btnStart").addEventListener("click",()=>{ startExam(licenseEl.value,getMode(),Number(fixedNoEl.value||1)); });
+
+function startExam(license,mode,fixedNo=1){
+  lastLicense=license; lastMode=mode; lastFixedNo=fixedNo;
+  const rule=examRules[license]; passingScore=ceil85(rule.questions);
+  selectedQuestions=shuffle(allQuestions).slice(0,rule.questions).map(q=>({...q,image:resolveImage(q.image||"")}));
+  idx=0; answers={}; finished=false;
+  clearInterval(timerInterval); timeLeft=rule.time*60; startTimer();
+  document.getElementById("homeScreen").classList.add("hidden");
+  document.getElementById("examScreen").classList.remove("hidden");
+  document.getElementById("report").classList.add("hidden"); document.getElementById("result").innerHTML="";
+  updateMeta(license,mode,fixedNo); renderQuestion(); paintGrid();
+}
+
+function updateMeta(license,mode,fixedNo){ const rule=examRules[license]; document.getElementById("examMeta").innerHTML=`Hạng ${license} | ${(mode==="random"?"Ngẫu nhiên":`Cố định #${fixedNo}`)} | ${rule.questions} câu | Cần &ge; ${passingScore} câu đúng`; }
+function startTimer(){ const t=document.getElementById("timer"); timerInterval=setInterval(()=>{ if(timeLeft<=0){submitQuiz(true);return;} timeLeft--; const m=Math.floor(timeLeft/60),s=timeLeft%60; t.textContent=`${m}:${s<10?"0":""}${s}`; },1000);}
+function renderQuestion(){ const q=selectedQuestions[idx]; if(!q)return; let html=`<p>Câu ${idx+1}: ${q.question}</p>`; if(q.image){ html+=`<div class="imgbox"><img src="${q.image}" loading="lazy"></div>`;} html+=`<div class="answers">`; q.answers.forEach((ans,i)=>{ html+=`<label><input type="radio" name="ans" value="${i}" ${answers[idx]===i?"checked":""} ${finished?"disabled":""}> ${ans}</label>`;}); html+="</div>"; document.getElementById("qbox").innerHTML=html; document.querySelectorAll('input[name="ans"]').forEach(r=>{r.addEventListener("change",e=>{answers[idx]=parseInt(e.target.value);paintGrid();});}); paintGrid(); }
+function paintGrid(){ const g=document.getElementById("grid"); g.innerHTML=""; for(let i=0;i<selectedQuestions.length;i++){const c=document.createElement("div"); c.className="cell"; if(i===idx)c.classList.add("current"); if(answers[i]!==undefined)c.classList.add("done"); if(finished){const corr=selectedQuestions[i].correct;if(answers[i]!==undefined)c.classList.add(answers[i]===corr?"correct":"wrong");} c.textContent=i+1; c.onclick=()=>{idx=i;renderQuestion();}; g.appendChild(c);} }
+
+function submitQuiz(auto=false){ clearInterval(timerInterval); finished=true; let score=0,fatalWrong=false; selectedQuestions.forEach((q,i)=>{ if(answers[i]!==undefined){ if(answers[i]===q.correct)score++; else if(q.isFatal)fatalWrong=true; } else if(q.isFatal)fatalWrong=true; }); const res=document.getElementById("result"); res.innerHTML=`Kết quả: Đúng ${score}/${selectedQuestions.length} câu.<br>`+(fatalWrong?"❌ Sai câu liệt → KHÔNG ĐẠT":(score>=passingScore?"✅ ĐẠT":`❌ KHÔNG ĐẠT (cần &ge; ${passingScore})`))+(auto?"<br>⏰ Hết giờ, hệ thống đã tự động nộp bài.":""); const rep=document.getElementById("report"); let repHTML="<h3>📋 Báo cáo chi tiết</h3>"; repHTML+=`<div class="filter-btns"><button class="btn secondary" onclick="filterReport('all')">Xem tất cả</button> <button class="btn danger" onclick="filterReport('fatal')">Xem câu liệt</button></div>`; repHTML+=`<div id="reportContent"></div>`; rep.innerHTML=repHTML; renderReportContent("all"); rep.classList.remove("hidden"); }
+function renderReportContent(mode){ let repHTML=""; selectedQuestions.forEach((q,i)=>{ if(mode==="fatal" && !q.isFatal) return; const yourIdx=answers[i]; const yourAns=(yourIdx!==undefined)?q.answers[yourIdx]:"❌ Không trả lời"; const correctAns=q.answers[q.correct]; const isCorrect=(yourIdx===q.correct); const status=isCorrect?'<span class="correct-ans">✅ Đúng</span>':'<span class="wrong-ans">❌ Sai</span>'; let fatalClass="", fatalNote=""; if(q.isFatal){ if(isCorrect){ fatalClass="fatal-correct"; fatalNote=" <span class='correct-ans'>(Câu liệt - Trả lời đúng)</span>"; } else { fatalClass="fatal-wrong"; fatalNote=" <span class='fatal-label'>(Câu liệt - Sai là rớt ngay)</span>"; } } repHTML+=`<div class="qdetail ${fatalClass}"><p><b>Câu ${i+1}:</b> ${q.question}${fatalNote}</p>${q.image?`<img src="${q.image}" loading="lazy">`:""}<p>Kết quả: ${status}</p><p>Bạn chọn: ${yourAns}</p><p>Đáp án đúng: <span class="correct-ans">${correctAns}</span></p></div>`; }); document.getElementById("reportContent").innerHTML=repHTML; }
+function filterReport(mode){ renderReportContent(mode); }
+
+document.getElementById("btnRetry").addEventListener("click",()=>{ if(!selectedQuestions.length)return; const rule=examRules[lastLicense]; passingScore=ceil85(rule.questions); idx=0;answers={};finished=false;clearInterval(timerInterval);timeLeft=rule.time*60;startTimer();document.getElementById("result").innerHTML="";document.getElementById("report").classList.add("hidden");renderQuestion();paintGrid(); });
+document.getElementById("btnBack").addEventListener("click",()=>{ clearInterval(timerInterval); document.getElementById("examScreen").classList.add("hidden"); document.getElementById("homeScreen").classList.remove("hidden"); });
+loadAllQuestions();
+</script>
+</body>
+</html>
